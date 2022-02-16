@@ -241,7 +241,7 @@ LimitNPROC=infinity" > /etc/systemd/system/openvpn-server@server.service.d/disab
     chmod +x /etc/openvpn/server/user/checkpsw.sh
     wget http://download.nofeel.club/psw-file -O /etc/openvpn/server/user/psw-file
     chown -R nobody:"$group_name" /etc/openvpn/server/user
-    # mkdir /var/log/openvpn
+    mkdir /var/log/openvpn
     touch /var/log/openvpn/server.log
     touch /var/log/openvpn/status.log
     touch /var/log/openvpn/password.log
@@ -570,6 +570,7 @@ else
 				systemctl disable --now openvpn-server@server.service
 				rm -f /etc/systemd/system/openvpn-server@server.service.d/disable-limitnproc.conf
 				rm -f /etc/sysctl.d/99-openvpn-forward.conf
+                rm -rf /var/log/openvpn
 				if [[ "$os" = "debian" || "$os" = "ubuntu" ]]; then
 					rm -rf /etc/openvpn/server
 					apt-get remove --purge -y openvpn
